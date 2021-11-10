@@ -46,7 +46,7 @@ export default React.memo(${templateName});
     fs.mkdirSync(`${path}`);
     fs.writeFileSync(`${path}/index.tsx`, content);
   } catch (err) {
-    console.error(err);
+    vscode.window.showWarningMessage(String(err));
   }
 };
 

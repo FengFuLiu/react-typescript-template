@@ -45,6 +45,15 @@ export default React.memo(${templateName});
       ;
     fs.mkdirSync(`${path}`);
     fs.writeFileSync(`${path}/index.tsx`, content);
+
+    setTimeout(() => {
+      const openPath = vscode.Uri.file(`${path}/index.tsx`);
+      vscode.workspace.openTextDocument(openPath).then(doc => {
+        vscode.window.showTextDocument(doc);
+      });
+    }, 10);
+
+
   } catch (err) {
     vscode.window.showWarningMessage(String(err));
   }
@@ -55,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
   const createPageCommand = vscode.commands.registerCommand('extension.createPage', async function (param) {
     const folderPath = param.fsPath;
     const name = await vscode.window.showInputBox({
-      placeHolder: `Enter your page name`
+      placeHolder: `Enter your page name like 'main-page'`
     });
     if (name) {
       const path = `${folderPath}/${name}`;

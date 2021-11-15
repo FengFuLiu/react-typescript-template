@@ -4,7 +4,7 @@
   "icon": "images/icon.jpg",
   "displayName": "react-typescript-template",
   "description": "generate code template for react typescript project",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.52.0"
   },

@@ -12,13 +12,15 @@ type Props = {
   path: string;
   type: string
 };
-
-const line2camelCase = (name: string) =>
-  name.replace(/\-(\w)/g, (_all, letter) => letter.toUpperCase());
+// 支持转换_以及-符号为间隔的命名为组件命名规范
+const formatName = (name: string) =>
+  name
+    .replace(/\-(\w)/g, (_prefixStr, s) => s.toUpperCase())
+    .replace(/\_(\w)/g, (_prefixStr, s) => s.toUpperCase())
+    .replace(/^\S/g, s => s.toUpperCase());
 
 const generateComponent = ({ name, path, type }: Props) => {
-  const templateName = line2camelCase(name).replace(/^\S/, s => s.toUpperCase());
-
+  const templateName = formatName(name);
   try {
     const content = SNIPPETS_TYPE.page === type ?
       `import React from 'react';
